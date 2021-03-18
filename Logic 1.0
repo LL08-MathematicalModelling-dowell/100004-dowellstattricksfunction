@@ -1,2 +1,82 @@
 Logic file for stattricks function:
-
+1	Call dowellstattricks function(process ID,process sequence ID,series,minimum series,minimum series datapoint,minimum continuous datapoint,process hours,values)		
+1.1	input from front end programmer "process ID" - numeric, non zero, +ve	input variable 1	
+1.2	input from front end programmer "process sequence ID" - numeric, non zero, +ve	input variable 2	
+1.3	Input by front end programmer "series 10001" array for each series - numeric, accept zero	input variable 3	
+1.4	input by front end programmer "minimum series" - numeric, non zero, +ve	input variable 4	
+1.5	input by front end programmer "minimum series datapoint" - numeric , accept zero, +ve	input variable 5	
+1.6	input by front end programmer "minimum continuous datapoint" - numeric, non zero, +ve	input variable 6	Repeat calling the function until all series finishes in a process ID.process sequence ID
+1.7	input by front end programmer "startstattricks" - yes/no	input variable 7	
+1.8	input by front end programmer "startstattricks" - if yes, process hours - numeric, non zero, +ve	input variable 8	Call when the front end programmer needs output
+2.1	Add the input details to master document in the database of function with request number and details		
+2.2	Create mongodb collection in the exclusive database for this function for process ID dynamically if the process is new, otherwise use the existing collection for the process ID	db.collection	database in mongodb
+2.3	Create mongodb document for new process sequence ID  in the process collection, check for duplication and give warning then add if existing	db.cllection.document	
+2.4	Create mongodb document.field starting from 10001 to unlimted for each array under collection>document 	db.collection.document.field	
+2.5	Add array values under field (unlimited)	db.collection.document.field.datapoint	
+3.1	check "startstattricks", if "starttattricks" = Yes continue,  if no wait		
+3.2	Check number of process hours and select the arrays for processing		
+3.3	Check number of datapoints in each array (non zero, +ve)		
+3.4	Check number of arrays in a process sequence (non zero, +ve)		
+3.5	Check the minimum series and minimum series datapoint in each series with the master document for every call of function (if both are above proceed, if no inform frontend programmer)		Process error (under minimum datapoints/series for poisson disctribution 
+4.01	take all values under collection.document.field 10001 then "count" 	output variable 1 (for each field)	
+4.02	take all values under collection.document.field 10001 then take "maximum value" 	output variable 2 (for each field)	
+4.03	take all values under collection.document.field 10001 then take "minimum value" 	output variable 3 (for each field)	
+4.04	take all values under collection.document.field 10001 then take "mean value" 	output variable 4 (for each field)	
+4.05	take all values under collection.document.field 10001 then take "median value" 	output variable 5 (for each field)	
+4.06	take all values under collection.document.field 10001 then take "mode value" 	output variable 6 (for each field)	
+4.07	take all values under collection.document.field 10001 then calculate "standard deviation" 		
+4.08	take all values under collection.document.field 10001 then calculate "standard deviation*-1*3" 	output variable 7 (for each field)	standard deviation *-3
+4.09	take all values under collection.document.field 10001 then calculate "standard deviation* -1*2" 	output variable 8 (for each field)	standard deviation *-2
+4.1	take all values under collection.document.field 10001 then calculate "standard deviation* -1" 	output variable 9 (for each field)	standard deviation *-1
+4.11	take all values under collection.document.field 10001 then calculate "standard deviation* 3" 	output variable 10 (for each field)	standard deviation *3
+4.12	take all values under collection.document.field 10001 then calculate "standard deviation* 2" 	output variable 11 (for each field)	standard deviation *2
+4.13	take all values under collection.document.field 10001 then calculate "standard deviation* 1" 	output variable 12 (for each field)	standard deviation *1
+4.14	Take all datapoints within standard deviation -1 & +1 then convert it as array "processID.processsequenceID.seriesID.std1-1"	output array 13 (for each field)	
+4.15	Take all datapoints within standard deviation -2 & +2 then convert it as array "processID.processsequenceID.seriesID.std2-2"	output array 14 (for each field)	
+4.16	Take all datapoints within standard deviation -3 & +3 then convert it as array "processID.processsequenceID.seriesID.std3-3"	output array 15 (for each field)	
+4.17	Take all datapoints in the series then convert it as array "processID.processsequenceID.seriesID.all"	output array 16 (for each field)	
+5.01	Take all datapoints in the series then calculate Moment 1	output variable 17 (for each field)	
+5.02	Take all datapoints in the series then calculate Moment 2	output variable 18 (for each field)	
+5.03	Take all datapoints in the series then calculate Moment 3	output variable 19 (for each field)	
+5.04	Take all datapoints in the series then calculate Moment 4	output variable 20 (for each field)	
+5.05	Take all datapoints in the series then calculate Variance	output variable 21 (for each field)	
+5.06	Take all datapoints in the series then calculate skewness	output variable 22 (for each field)	
+5.07	Take all datapoints in the series then calculate Kurtosis	output variable 23 (for each field)	
+5.08	Repeat the process for each field and save to output document Collection(processID).document(process sequence ID).field(series 10001).value (23 variables)	convert all the output variabels to array having 23 fields	
+6.01	Append s2 under s1, s3 under s2......... until it completes all series , save to new document "normaldistribution" (will be having two fields "series number" "value"		
+6.02	Check minimum contineous datapoint with master document for every call of function (if above proceed, if no inform frontend programmer)		Process error (under minimum datapoints for normal disctribution 
+6.03	take all values under collection(processID).document(process sequence ID_normal).field(value) then "count" 	output variable 101 (for normal distribution)	
+6.04	take all values under collection(processID).document(process sequence ID_normal).field(value) then take "maximum value" 	output variable 102 (for normal distribution)	
+6.05	take all values under collection(processID).document(process sequence ID_normal).field(value) then take "minimum value" 	output variable 103 (for normal distribution)	
+6.06	take all values under collection(processID).document(process sequence ID_normal).field(value) then take "mean value" 	output variable 104 (for normal distribution)	
+6.07	take all values under collection(processID).document(process sequence ID_normal).field(value) then take "median value" 	output variable 105 (for normal distribution)	
+6.08	take all values under collection(processID).document(process sequence ID_normal).field(value) then take "mode value" 	output variable 106 (for normal distribution)	
+6.09	take all values under collection(processID).document(process sequence ID_normal).field(value) then calculate "standard deviation" 		
+6.1	take all values under collection(processID).document(process sequence ID_normal).field(value) then calculate "standard deviation *-3" 	output variable 107 (for normal distribution)	standard deviation *-3
+6.11	take all values under collection(processID).document(process sequence ID_normal).field(value) then calculate "standard deviation *-2" 	output variable 108 (for normal distribution)	standard deviation *-2
+6.12	take all values under collection(processID).document(process sequence ID_normal).field(value) then calculate "standard deviation *-1" 	output variable 109 (for normal distribution)	standard deviation *-1
+6.13	take all values under collection(processID).document(process sequence ID_normal).field(value) then calculate "standard deviation *+3" 	output variable 110 (for normal distribution)	standard deviation *3
+6.14	take all values under collection(processID).document(process sequence ID_normal).field(value) then calculate "standard deviation *+2" 	output variable 111 (for normal distribution)	standard deviation *2
+6.15	take all values under collection(processID).document(process sequence ID_normal).field(value) then calculate "standard deviation *+1" 	output variable 112 (for normal distribution)	standard deviation *1
+6.16	Take all datapoints within standard deviation -1 & +1 then convert it as array "processID.processsequenceID.seriesID.std1-1"	output array 113 (for normal distribution)	
+6.17	Take all datapoints within standard deviation -2 & +2 then convert it as array "processID.processsequenceID.seriesID.std2-2"	output array 114 (for normal distribution)	
+6.18	Take all datapoints within standard deviation -3 & +3 then convert it as array "processID.processsequenceID.seriesID.std3-3"	output array 115 (for normal distribution)	
+6.19	Take all datapoints in the series then convert it as array "processID.processsequenceID.seriesID.all"	output array 116 (for normal distribution)	
+7.01	Take all datapoints in the series then calculate Moment 1	output variable 117 (for normal distribution)	
+7.02	Take all datapoints in the series then calculate Moment 2	output variable 118 (for normal distribution)	
+7.03	Take all datapoints in the series then calculate Moment 3	output variable 119 (for normal distribution)	
+7.04	Take all datapoints in the series then calculate Moment 4	output variable 120 (for normal distribution)	
+7.05	Take all datapoints in the series then calculate Variance	output variable 121 (for normal distribution)	
+7.06	Take all datapoints in the series then calculate skewness	output variable 122 (for normal distribution)	
+7.07	Take all datapoints in the series then calculate Kurtosis	output variable 123 (for normal distribution)	
+8.01	convert all the output variabels to array having 23 values then save to output document Collection(processID).document(process sequence ID_normal).field(normal).value (23 variables)	convert all the output variabels to array having 23 fields	
+8.02	For each delivery add count in master document of the function and record all 23 variables in output document of poisson and normal distribution		call eventid function and update
+			
+			
+			
+			
+	Diployment		
+9	Convert the program into functional form which anybody can call anywhere		
+			
+	Result( Minimum value,Max value, Mean , Mode , Median, +sd,-sd,+2sd,-2sd,+3sd,-3sd, moment 1,moment 2, moment 3, moment 4, variance,skewness, kurtosis)		
+	end		
