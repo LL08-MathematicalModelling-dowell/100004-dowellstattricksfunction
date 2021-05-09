@@ -4,6 +4,7 @@ import pymongo
 from collections import Counter
 import math
 from scipy.stats import kurtosis
+from scipy.stats import moment
 
 client = pymongo.MongoClient("mongodb+srv://sohaib:sohaib2140@project0.ghjdn.mongodb.net/demo?retryWrites=true&w=majority")
 db = client['demo']
@@ -108,8 +109,12 @@ def processSeries10001(request):
     medianValue=median(series10001)
     modeValue=mode(series10001)
     stdValue=stdev(series10001)
-    cursor.find_one_and_update({"title":"processSeries10001"},{"$set":{"minimumValue":minimumValue,"mean":meanValue,"maximumValue":maximumValue,"median":medianValue,"mode":modeValue,"standardDeviation":str("%.3f" % stdValue)}})
-    return HttpResponse("Minimum Value of Series 10001: "+str(minimumValue)+"<br>Maximum Value of Series 10001: "+str(maximumValue)+"<br>Mean Value of Series 10001: "+str("%.2f" % meanValue)+"<br>Median Value of Series 10001: "+str(medianValue)+"<br>Mode Value of Series 10001: "+str(modeValue[0])+"<br>Standard Deviation of Series 10001: "+str("%.3f" % stdValue))
+    moment1=moment(series10001, moment=1)
+    moment2=moment(series10001, moment=2)
+    moment3=moment(series10001, moment=3)
+    moment4=moment(series10001, moment=4)
+    cursor.find_one_and_update({"title":"processSeries10001"},{"$set":{"minimumValue":minimumValue,"mean":meanValue,"maximumValue":maximumValue,"median":medianValue,"mode":modeValue,"standardDeviation":str("%.3f" % stdValue),"m1":str(moment1),"m2":str(moment2),"m3":str(moment3),"m4":str(moment4)}})
+    return HttpResponse("Minimum Value of Series 10001: "+str(minimumValue)+"<br>Maximum Value of Series 10001: "+str(maximumValue)+"<br>Mean Value of Series 10001: "+str("%.2f" % meanValue)+"<br>Median Value of Series 10001: "+str(medianValue)+"<br>Mode Value of Series 10001: "+str(modeValue[0])+"<br>Standard Deviation of Series 10001: "+str("%.3f" % stdValue)+"<br>m1 : "+str(moment1)+"<br>m2 : "+str(moment2)+"<br>m3 : "+str(moment3)+"<br>m4 : "+str(moment4))
 
 def processAllDatapoints(request):
     cursor=db.demo
@@ -122,10 +127,12 @@ def processAllDatapoints(request):
     meanValue = mean(dataPoints)
     medianValue = median(dataPoints)
     stdValue = stdev(dataPoints)
+    moment1=moment(dataPoints, moment=1)
+    moment2=moment(dataPoints, moment=2)
+    moment3=moment(dataPoints, moment=3)
+    moment4=moment(dataPoints, moment=4)
     temp1 = meanValue-medianValue
     temp1 = 3*temp1
     skewness=temp1/stdValue
-    cursor.find_one_and_update({"title":"processAllDatapoints"},{"$set":{"kurtosis":kurtosisValue,"skewness":str("%.3f" %skewness)}})
-    return HttpResponse("Kurtosis Value: "+str("%.3f" % kurtosisValue)+"<br>Skewness Value: "+str("%.3f" %skewness))
-
-
+    cursor.find_one_and_update({"title":"processAllDatapoints"},{"$set":{"kurtosis":kurtosisValue,"skewness":str("%.3f" %skewness),"m1":str(moment1),"m2":str(moment2),"m3":str(moment3),"m4":str(moment4)}})
+    return HttpResponse("Kurtosis Value: "+str("%.3f" % kurtosisValue)+"<br>Skewness Value: "+str("%.3f" %skewness)+"<br>m1 : "+str(moment1)+"<br>m2 : "+str(moment2)+"<br>m3 : "+str(moment3)+"<br>m4 : "+str(moment4))
