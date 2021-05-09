@@ -6,8 +6,8 @@ import math
 from scipy.stats import kurtosis
 from scipy.stats import moment
 
-client = pymongo.MongoClient("mongodb+srv://sohaib:sohaib2140@project0.ghjdn.mongodb.net/demo?retryWrites=true&w=majority")
-db = client['demo']
+client = pymongo.MongoClient("mongodb+srv://sohaib:sohaib2140@project0.ghjdn.mongodb.net/FB?retryWrites=true&w=majority")
+db = client['mongodb']
 
 def default(request):
     return render(request,"dashboard.html")
@@ -19,7 +19,7 @@ def form(request):
     return render(request,"form.html")
 
 def insertData(request):
-    cursor=db.demo
+    cursor=db.qr
     if request.method=="POST":
         processId = request.POST.get("processId")
         processSequenceId = request.POST.get("processSequenceId")
@@ -83,7 +83,7 @@ def stdev(data):
     return std_dev
 
 def processSeries10001(request):
-    cursor=db.demo
+    cursor=db.qr
     result=cursor.find({"title":"userData"})
     temp=0
     minimumValue=0
@@ -117,7 +117,7 @@ def processSeries10001(request):
     return HttpResponse("Minimum Value of Series 10001: "+str(minimumValue)+"<br>Maximum Value of Series 10001: "+str(maximumValue)+"<br>Mean Value of Series 10001: "+str("%.2f" % meanValue)+"<br>Median Value of Series 10001: "+str(medianValue)+"<br>Mode Value of Series 10001: "+str(modeValue[0])+"<br>Standard Deviation of Series 10001: "+str("%.3f" % stdValue)+"<br>m1 : "+str(moment1)+"<br>m2 : "+str(moment2)+"<br>m3 : "+str(moment3)+"<br>m4 : "+str(moment4))
 
 def processAllDatapoints(request):
-    cursor=db.demo
+    cursor=db.qr
     result=cursor.find({"title":"userData"})
     dataPoints=[]
     for row in result:
