@@ -6,6 +6,15 @@ import math
 from scipy.stats import kurtosis
 from scipy.stats import moment
 from TRYMONGO1 import insert
+from django.http import JsonResponse
+import json
+from bson import ObjectId
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
 
 client = pymongo.MongoClient("mongodb+srv://sohaib:sohaib2140@project0.ghjdn.mongodb.net/FB?retryWrites=true&w=majority")
 db = client['mongodb']
@@ -101,6 +110,22 @@ def insertData(request):
             return HttpResponse("Inserted!")
     else:
         return HttpResponse("No Data Found")
+
+def fetchDataForm(request):
+    return render(request,"fetchData.html")
+
+
+def fetchData(request):
+    cursor=db.qr
+    if request.method=="POST":
+        processSequenceId = request.POST.get("psi")
+        result=cursor.find_one({"processSequenceId":processSequenceId})
+        print(result)
+        if result!=None:
+            data=JSONEncoder().encode(result)
+            return HttpResponse(data)
+        else:
+            return HttpResponse("No Data Found")
 
 # def processSeries10001(request):
 #     cursor=db.qr
