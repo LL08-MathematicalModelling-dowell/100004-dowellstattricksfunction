@@ -5,7 +5,6 @@ from collections import Counter
 import math
 from scipy.stats import kurtosis
 from scipy.stats import moment
-from TRYMONGO1 import insert
 from django.http import JsonResponse
 import json
 from bson import ObjectId
