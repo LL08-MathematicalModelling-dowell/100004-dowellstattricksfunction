@@ -1,5 +1,4 @@
-# 100004-dowellstattricks
-# Documentation for the stattricks API
+# Documentation for the Stattricks API
 ### API call
 
 ```py
@@ -267,10 +266,10 @@ except:
 ### Variable definitions
 ##### title : any title of your choice
 ##### processId : an number either random or specific to your project
-##### processSequenceId : an number either random or specific to your project
+##### processSequenceId : a number either random or specific to your project
 ##### series : this is the number of series you wish to pass
-##### seriesvalues : a dictionary with series number as keys and corresponding series as values
-##### NOTE: series number always starts with prefix "1000"+ followed by by the next number in the series
+##### seriesvalues : a dictionary with series numbers as keys and corresponding series as values
+##### NOTE: a series number always starts with prefix "1000"+ followed by by the next number in the series
 
 
 
