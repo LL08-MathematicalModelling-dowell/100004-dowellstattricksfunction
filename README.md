@@ -1,6 +1,6 @@
 # 100004-dowellstattricks
-#Documentation for the stattricks API
-###API call
+# Documentation for the stattricks API
+### API call
 
 ```py
 import requests
@@ -8,8 +8,8 @@ import requests
 url = "https://100004.pythonanywhere.com/api"
 ```
 
-###Payload for the API
-####Request method : POST
+### Payload for the API
+#### Request method : POST
 
 ```py
 {
@@ -262,13 +262,13 @@ try:
 except:
     return "Check the input values!"
     
-###Variable definitions
-#####title : any title of your choice
-#####processId : an number either random or specific to your project
-#####processSequenceId : an number either random or specific to your project
-#####series : this is the number of series you wish to pass
-#####seriesvalues : a dictionary with series number as keys and corresponding series as values
-#####NOTE: series number always starts with prefix "1000"+ followed by by the next number in the series
+### Variable definitions
+##### title : any title of your choice
+##### processId : an number either random or specific to your project
+##### processSequenceId : an number either random or specific to your project
+##### series : this is the number of series you wish to pass
+##### seriesvalues : a dictionary with series number as keys and corresponding series as values
+##### NOTE: series number always starts with prefix "1000"+ followed by by the next number in the series
 
 
 
