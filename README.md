@@ -30,7 +30,7 @@ url = "https://100004.pythonanywhere.com/api"
 
 #NOTE: Refer the variable definition section for clarity on input variables
 ```
-###Response
+### Response
 
 ```py
 {
