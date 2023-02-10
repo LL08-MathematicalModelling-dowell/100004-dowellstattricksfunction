@@ -255,12 +255,14 @@ url = "https://100004.pythonanywhere.com/api"
     "Process Time |": "0:0:1"
 }
 ```
+```py
 headers={'content-type': 'application/json'}
 try:
     response=requests.post(url,json=data,headers=headers)
     return response.text
 except:
     return "Check the input values!"
+```
     
 ### Variable definitions
 ##### title : any title of your choice
