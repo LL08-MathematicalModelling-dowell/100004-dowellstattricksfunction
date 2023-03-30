@@ -12,246 +12,164 @@ url = "https://100004.pythonanywhere.com/api"
 
 ```py
 {
-   "title": "Testingwithnewipformat3",        
-   "processId": 279,                     
-   "processSequenceId": 6,               
-   "series": 7,				
-   "seriesvalues": {
-                    "10001": "103,112,108,120",
-                    "10002": "121,199,121,152",
-                    "10003": "172,118,198,102",
-                    "10004": "121,407,112,112",
-                    "10005": "112,102,152,182",
-                    "10006": "125,182,50,102",
-                    "10007":"111,101,200,202"
-                   }
+   "title": "backendtesting",
+   "Process_id": 10122,
+   "processSequenceId": 16,
+   "series": 3,				
+   "seriesvalues":{
+       "list1":[2,23,5,7,2],
+       "list2":[5,5,6,7,10],
+       "list3":[11,12,13,14,11],
+       "list4":[8,8,7,9,15]
+   }
 }
 
-#NOTE: Refer the variable definition section for clarity on input variables
+NOTE: Refer the variable definition section for clarity on input variables
 ```
 ### Response
 
 ```py
 {
     "msg": "Successfully generated the results",
-    "Title |": "Testingwithnewipformat3",
-    "Process Id |": 279,
-    "Process Sequence Id |": 6,
-    "Series |": {
-        "10001": [
-            103,
-            108,
-            112,
-            120
+    "Title :": "backendtesting",
+    "Process Id :": 10122,
+    "Process Sequence Id :": 16,
+    "Series :": {
+        "list1": [
+            2,
+            2,
+            5,
+            7,
+            23
         ],
-        "10002": [
-            121,
-            121,
-            152,
-            199
+        "list2": [
+            5,
+            5,
+            6,
+            7,
+            10
         ],
-        "10003": [
-            102,
-            118,
-            172,
-            198
+        "list3": [
+            11,
+            11,
+            12,
+            13,
+            14
         ],
-        "10004": [
-            112,
-            112,
-            121,
-            407
-        ],
-        "10005": [
-            102,
-            112,
-            152,
-            182
-        ],
-        "10006": [
-            50,
-            102,
-            125,
-            182
-        ],
-        "10007": [
-            101,
-            111,
-            200,
-            202
+        "list4": [
+            7,
+            8,
+            8,
+            9,
+            15
         ]
     },
-    "Minimum Series |": 4,
-    "Minimum Series Data Point |": {
-        "10001": 103,
-        "10002": 121,
-        "10003": 102,
-        "10004": 112,
-        "10005": 102,
-        "10006": 50,
-        "10007": 101
+    "Minimum Series |": 5,
+    "Minimum Series Data Point :": {
+        "list1": 2,
+        "list2": 5,
+        "list3": 11,
+        "list4": 7
     },
-    "Minimum Continuous Data Point |": 50,
-    "Results": 50,
-    "Mean |": {
-        "10001": 110.75,
-        "10002": 148.25,
-        "10003": 147.5,
-        "10004": 188.0,
-        "10005": 137.0,
-        "10006": 114.75,
-        "10007": 153.5
+    "Minimum Continuous Data Point :": 2,
+    "Min continous data point": 2,
+    "Mean :": {
+        "list1": 7.8,
+        "list2": 6.6,
+        "list3": 12.2,
+        "list4": 9.4
     },
-    "Median |": {
-        "10001": 110.0,
-        "10002": 136.5,
-        "10003": 145.0,
-        "10004": 116.5,
-        "10005": 132.0,
-        "10006": 113.5,
-        "10007": 155.5
+    "Median :": {
+        "list1": 5,
+        "list2": 6,
+        "list3": 12,
+        "list4": 8
     },
-    "Mode |": {
-        "10001": [
-            103,
-            108,
-            112,
-            120
+    "Mode :": {
+        "list1": [
+            2
         ],
-        "10002": [
-            121
+        "list2": [
+            5
         ],
-        "10003": [
-            102,
-            118,
-            172,
-            198
+        "list3": [
+            11
         ],
-        "10004": [
-            112
-        ],
-        "10005": [
-            102,
-            112,
-            152,
-            182
-        ],
-        "10006": [
-            50,
-            102,
-            125,
-            182
-        ],
-        "10007": [
-            101,
-            111,
-            200,
-            202
+        "list4": [
+            8
         ]
     },
-    "Moment1 |": {
-        "10001": 0.0,
-        "10002": 0.0,
-        "10003": 0.0,
-        "10004": 0.0,
-        "10005": 0.0,
-        "10006": 0.0,
-        "10007": 0.0
+    "Moment1 :": {
+        "list1": 0.0,
+        "list2": 0.0,
+        "list3": 0.0,
+        "list4": 0.0
     },
-    "Moment2 |": {
-        "10001": 38.6875,
-        "10002": 1018.6875,
-        "10003": 1522.75,
-        "10004": 16000.5,
-        "10005": 1025.0,
-        "10006": 2245.6875,
-        "10007": 2269.25
+    "Moment2 :": {
+        "list1": 61.36,
+        "list2": 3.44,
+        "list3": 1.3599999999999999,
+        "list4": 8.24
     },
-    "Moment3 |": {
-        "10001": 76.78125,
-        "10002": 22573.21875,
-        "10003": 5906.25,
-        "10004": 2331186.0,
-        "10005": 9000.0,
-        "10006": 7919.53125,
-        "10007": -1710.0
+    "Moment3 :": {
+        "list1": 619.8239999999998,
+        "list2": 6.192000000000003,
+        "list3": 0.5760000000000028,
+        "list4": 31.24799999999999
     },
-    "Moment4 |": {
-        "10001": 2747.01953125,
-        "10002": 1934129.51953125,
-        "10003": 2976836.3125,
-        "10004": 596783248.5,
-        "10005": 1510625.0,
-        "10006": 9517154.14453125,
-        "10007": 5266964.5625
+    "Moment4 :": {
+        "list1": 11140.9312,
+        "list2": 29.379200000000008,
+        "list3": 3.0112000000000014,
+        "list4": 204.86719999999997
     },
-    "Normal Distribution |": {
-        "10001": 104.53007234768764,
-        "10002": 116.33311575357018,
-        "10003": 108.47757055230929,
-        "10004": 61.506917185167794,
-        "10005": 104.98437881283576,
-        "10006": 67.36131464157293,
-        "10007": 105.8633544421944
+    "Normal Distribution :": {
+        "list1": -0.03326241102645611,
+        "list2": 4.7452763009008585,
+        "list3": 11.03380962103094,
+        "list4": 6.529459981118535
     },
-    "Skewness |": {
-        "10001": 0.31907970261548496,
-        "10002": 0.6942757952290245,
-        "10003": 0.09939600141591308,
-        "10004": 1.151798729246718,
-        "10005": 0.27425636234096673,
-        "10006": 0.07441757167414619,
-        "10007": -0.015818765724753953
+    "Skewness :": {
+        "list1": 1.289556461793242,
+        "list2": 0.9704949588309462,
+        "list3": 0.3631734744194323,
+        "list4": 1.3210869678752706
     },
-    "Kurtosis |": {
-        "10001": -1.1646435832456852,
-        "10002": -1.1361815814798248,
-        "10003": -1.716198915043258,
-        "10004": -0.6689611277527958,
-        "10005": -1.5621653777513385,
-        "10006": -1.1128411408573362,
-        "10007": -1.9771882510482308
+    "Kurtosis :": {
+        "list1": -0.04096031032366687,
+        "list2": -0.5173066522444554,
+        "list3": -1.3719723183390993,
+        "list4": 0.01729663493260425
     },
-    "Range |": {
+    "Range :": {
         "1": [
-            103,
-            121,
-            102,
-            112,
-            102,
-            50,
-            101
+            2,
+            5,
+            11,
+            7
         ],
         "2": [
-            108,
-            121,
-            118,
-            112,
-            112,
-            102,
-            111
+            2,
+            5,
+            11,
+            8
         ],
         "3": [
-            112,
-            152,
-            172,
-            121,
-            152,
-            125,
-            200
+            5,
+            6,
+            12,
+            8
         ]
     },
-    "Standard Deviation |": {
-        "10001": 6.219927652312364,
-        "10002": 31.91688424642982,
-        "10003": 39.02242944769072,
-        "10004": 126.4930828148322,
-        "10005": 32.01562118716424,
-        "10006": 47.38868535842707,
-        "10007": 47.6366455578056
+    "Standard Deviation :": {
+        "list1": 7.833262411026456,
+        "list2": 1.8547236990991407,
+        "list3": 1.16619037896906,
+        "list4": 2.870540018881465
     },
-    "StartTricks |": "yes",
-    "Process Time |": "0:0:1"
+    "StartTricks :": "yes",
+    "Process Time :": "0:0:1",
+    "created_on :": "2023-03-03 08:55:46.138123"
 }
 ```
 ```py
@@ -264,14 +182,10 @@ except:
 ```
     
 ### Variable definitions
-##### title : any title of your choice
-##### processId : an number either random or specific to your project
-##### processSequenceId : a number either random or specific to your project
-##### series : this is the number of series you wish to pass
-##### seriesvalues : a dictionary with series numbers as keys and corresponding series as values
-##### NOTE: a series number always starts with prefix "1000"+ followed by by the next number in the series
-
-
-
-
-
+```txt
+title : any title of your choice
+processId : a number either random or specific to your project
+processSequenceId : a number either random or specific to your project
+series : the number of series you wish to pass
+seriesvalues : a dictionary with series names as keys and corresponding series as values
+```
