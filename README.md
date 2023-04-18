@@ -23,9 +23,12 @@ url = "https://100004.pythonanywhere.com/api"
        "list4":[8,8,7,9,15]
    }
 }
-
-NOTE: Refer the variable definition section for clarity on input variables
 ```
+```txt
+NOTE: 1. The length of each list in the "seriesvalues" dictionary should be greater than or equal to 3
+      2. Refer the variable definition section for more clarity on the input variables
+```
+
 ### Response
 
 ```py
