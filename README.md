@@ -12,15 +12,15 @@ url = "https://100004.pythonanywhere.com/api"
 
 ```py
 {
-   "title": "backendtesting",
-   "Process_id": 10122,
-   "processSequenceId": 16,
-   "series": 3,				
+   "title": "demo-case",
+   "Process_id": 12345,
+   "processSequenceId": 11,
+   "series": 4,
    "seriesvalues":{
-       "list1":[2,23,5,7,2],
-       "list2":[5,5,6,7,10],
-       "list3":[11,12,13,14,11],
-       "list4":[8,8,7,9,15]
+       "list1":[3,3,3,7],
+       "list2":[11,2,2,4],
+       "list3":[9,2,3,3],
+       "list4":[1,2,3,4,4]
    }
 }
 ```
@@ -34,145 +34,209 @@ NOTE: 1. The length of each list in the "seriesvalues" dictionary should be grea
 ```py
 {
     "msg": "Successfully generated the results",
-    "Title :": "backendtesting",
-    "Process Id :": 10122,
-    "Process Sequence Id :": 16,
-    "Series :": {
-        "list1": [
+    "title": "demo-case",
+    "Process_id": 12345,
+    "processSequenceId": 11,
+    "poison case results": {
+        "series": {
+            "list1": [
+                3,
+                3,
+                3,
+                7
+            ],
+            "list2": [
+                2,
+                2,
+                4,
+                11
+            ],
+            "list3": [
+                2,
+                3,
+                3,
+                9
+            ],
+            "list4": [
+                1,
+                2,
+                3,
+                4,
+                4
+            ]
+        },
+        "minimumSeries": 4,
+        "maximumSeries": 5,
+        "minimumSeriesDatapoint": {
+            "list1": 3,
+            "list2": 2,
+            "list3": 2,
+            "list4": 1
+        },
+        "minimumContinuousDatapoint": 1,
+        "mean": {
+            "list1": 4.0,
+            "list2": 4.75,
+            "list3": 4.25,
+            "list4": 2.8
+        },
+        "median": {
+            "list1": 3.0,
+            "list2": 3.0,
+            "list3": 3.0,
+            "list4": 3
+        },
+        "mode": {
+            "list1": [
+                3
+            ],
+            "list2": [
+                2
+            ],
+            "list3": [
+                3
+            ],
+            "list4": [
+                4
+            ]
+        },
+        "standardDeviation": {
+            "list1": 1.7320508075688772,
+            "list2": 3.6996621467371855,
+            "list3": 2.7726341266023544,
+            "list4": 1.16619037896906
+        },
+        "moment1": {
+            "list1": 0.0,
+            "list2": 0.0,
+            "list3": 0.0,
+            "list4": 0.0
+        },
+        "moment2": {
+            "list1": 3.0,
+            "list2": 13.6875,
+            "list3": 7.6875,
+            "list4": 1.3599999999999999
+        },
+        "moment3": {
+            "list1": 6.0,
+            "list2": 50.53125,
+            "list3": 22.96875,
+            "list4": -0.5759999999999993
+        },
+        "moment4": {
+            "list1": 21.0,
+            "list2": 410.14453125,
+            "list3": 134.89453125,
+            "list4": 3.011199999999999
+        },
+        "normalDistribution": {
+            "list1": 2.267949192431123,
+            "list2": 1.0503378532628145,
+            "list3": 1.4773658733976456,
+            "list4": 1.6338096210309399
+        },
+        "skewness": {
+            "list1": 1.1547005383792515,
+            "list2": 0.9978697176912956,
+            "list3": 1.0776051731391265,
+            "list4": -0.36317347441943004
+        },
+        "kurtosis": {
+            "list1": -0.6666666666666665,
+            "list2": -0.8107837618064679,
+            "list3": -0.7174301011302795,
+            "list4": -1.3719723183391006
+        },
+        "range": {
+            "1": [
+                3,
+                2,
+                2,
+                1
+            ],
+            "2": [
+                3,
+                2,
+                3,
+                2
+            ],
+            "3": [
+                3,
+                4,
+                3,
+                3
+            ]
+        },
+        "count_val": 5
+    },
+    "normal case results": {
+        "mergedSeries": [
+            1,
             2,
             2,
-            5,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4,
+            4,
+            4,
             7,
-            23
-        ],
-        "list2": [
-            5,
-            5,
-            6,
-            7,
-            10
-        ],
-        "list3": [
-            11,
-            11,
-            12,
-            13,
-            14
-        ],
-        "list4": [
-            7,
-            8,
-            8,
             9,
-            15
-        ]
-    },
-    "Minimum Series |": 5,
-    "Minimum Series Data Point :": {
-        "list1": 2,
-        "list2": 5,
-        "list3": 11,
-        "list4": 7
-    },
-    "Minimum Continuous Data Point :": 2,
-    "Min continous data point": 2,
-    "Mean :": {
-        "list1": 7.8,
-        "list2": 6.6,
-        "list3": 12.2,
-        "list4": 9.4
-    },
-    "Median :": {
-        "list1": 5,
-        "list2": 6,
-        "list3": 12,
-        "list4": 8
-    },
-    "Mode :": {
-        "list1": [
-            2
-        ],
-        "list2": [
-            5
-        ],
-        "list3": [
             11
         ],
-        "list4": [
-            8
-        ]
-    },
-    "Moment1 :": {
-        "list1": 0.0,
-        "list2": 0.0,
-        "list3": 0.0,
-        "list4": 0.0
-    },
-    "Moment2 :": {
-        "list1": 61.36,
-        "list2": 3.44,
-        "list3": 1.3599999999999999,
-        "list4": 8.24
-    },
-    "Moment3 :": {
-        "list1": 619.8239999999998,
-        "list2": 6.192000000000003,
-        "list3": 0.5760000000000028,
-        "list4": 31.24799999999999
-    },
-    "Moment4 :": {
-        "list1": 11140.9312,
-        "list2": 29.379200000000008,
-        "list3": 3.0112000000000014,
-        "list4": 204.86719999999997
-    },
-    "Normal Distribution :": {
-        "list1": -0.03326241102645611,
-        "list2": 4.7452763009008585,
-        "list3": 11.03380962103094,
-        "list4": 6.529459981118535
-    },
-    "Skewness :": {
-        "list1": 1.289556461793242,
-        "list2": 0.9704949588309462,
-        "list3": 0.3631734744194323,
-        "list4": 1.3210869678752706
-    },
-    "Kurtosis :": {
-        "list1": -0.04096031032366687,
-        "list2": -0.5173066522444554,
-        "list3": -1.3719723183390993,
-        "list4": 0.01729663493260425
-    },
-    "Range :": {
-        "1": [
-            2,
-            5,
-            11,
-            7
+        "seriesLength": 17,
+        "maxMergedSeries": 11,
+        "minMergedSeries": 1,
+        "mergedMean": 3.8823529411764706,
+        "mergedMedian": 3,
+        "mergedMode": [
+            3
         ],
-        "2": [
-            2,
-            5,
-            11,
-            8
-        ],
-        "3": [
-            5,
-            6,
-            12,
-            8
-        ]
+        "mergedStdValues": {
+            "mergedStdValue": 2.58689805027012,
+            "mergedStdValue_-3": -7.760694150810361,
+            "mergedStdValue_-2": -5.17379610054024,
+            "mergedStdValue_-1": -2.58689805027012,
+            "mergedStdValue_3": 7.760694150810361,
+            "mergedStdValue_2": 5.17379610054024,
+            "mergedStdValue_1": 2.58689805027012
+        },
+        "mergedRanges": {
+            "Range1": [
+                2,
+                2,
+                2,
+                2,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3
+            ],
+            "Range2": [
+                1,
+                4,
+                4,
+                4
+            ],
+            "Range3": []
+        },
+        "mergedVariance": 6.6920415224913485,
+        "mergedMoment1": 0.0,
+        "mergedMoment2": 6.6920415224913485,
+        "mergedMoment3": 27.65764298799104,
+        "mergedMoment4": 204.10648818859923,
+        "mergedSkewness": 1.5976337478934297,
+        "mergedKurtosis": 1.557635155584121
     },
-    "Standard Deviation :": {
-        "list1": 7.833262411026456,
-        "list2": 1.8547236990991407,
-        "list3": 1.16619037896906,
-        "list4": 2.870540018881465
-    },
-    "StartTricks :": "yes",
-    "Process Time :": "0:0:1",
-    "created_on :": "2023-03-03 08:55:46.138123"
+    "created on": "2023-05-03 13:39:25.883178"
 }
 ```
 ```py
