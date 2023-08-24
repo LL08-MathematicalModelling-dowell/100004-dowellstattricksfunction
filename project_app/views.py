@@ -1,13 +1,21 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-import pymongo
-from collections import Counter
-import math
-from scipy.stats import kurtosis
-from scipy.stats import moment
-from django.http import JsonResponse
-import json
+from django.shortcuts import render,redirect
+from django.http import HttpResponse,HttpResponseRedirect, JsonResponse
+from django.contrib import messages
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from bson import ObjectId
+from .dowellconnection import dowellconnection
+from .dowellstattricks import dowellstattricks
+from .api import stattricksAPI
+from .event_creation import get_event_id
+from datetime import datetime
+# import numpy as np
+import pandas as pd
+import json
+import requests
+# import threading
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -15,109 +23,246 @@ class JSONEncoder(json.JSONEncoder):
             return str(o)
         return json.JSONEncoder.default(self, o)
 
-client = pymongo.MongoClient("mongodb://127.0.0.1:27017")
-db = client['mongodb']
-
 def default(request):
     return render(request,"dashboard.html")
 
-def dbConnectionTest(reuest):
-    return HttpResponse(str(client.test))
-
 def form(request):
-    return render(request,"form.html")
+    return render(request,"insertDataForm.html")
 
-def mean(n_num):
-    n = len(n_num)  
-    get_sum = sum(n_num)
-    mean = get_sum / n
-    return mean
+#STATTRICKS API
+@api_view(['POST',])
+def stattricks_api(request):
 
-def median(n_num):
-    n = len(n_num)
-    n_num.sort()
-    if n % 2 == 0:
-        median1 = n_num[n//2]
-        median2 = n_num[n//2 - 1]
-        median = (median1 + median2)/2
-        return median
-    else:
-        median = n_num[n//2]
-        return median
-
-def mode(n_num):
-    n = len(n_num)
-    data = Counter(n_num)
-    get_mode = dict(data)
-    mode = [k for k, v in get_mode.items() if v == max(list(data.values()))]
-    return mode
-
-def variance(data, ddof=0):
-    n = len(data)
-    mean = sum(data) / n
-    return sum((x - mean) ** 2 for x in data) / (n - ddof)
-
-def stdev(data):
-    var = variance(data)
-    std_dev = math.sqrt(var)
-    return std_dev
-
-def insertData(request):
-    cursor=db.QR_IMAGE
     if request.method=="POST":
-        processId = request.POST.get("processId")
+        current_datetime = datetime.now()
+        # startHours=current_datetime.hour
+        # startMinutes=current_datetime.minute
+        # startSeconds=current_datetime.second
+
+        response=request.data
+
+        Process_id = response["Process_id"]
+        processSequenceId = response["processSequenceId"]
+        seriesvalues = response["seriesvalues"]
+        title=response["title"]
+        field={"Process_id" : Process_id}
+        res = dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","fetch",field,"nil")
+        result = json.loads(res)
+
+        if not result['data']:
+
+            qrImageData, combinedObservations = dowellstattricks(seriesvalues)
+
+            # endHours=current_datetime.hour
+            # endMinutes=current_datetime.minute
+            # endSeconds=current_datetime.second
+            # processHours=endHours-startHours
+            # processMinutes=endMinutes-startMinutes
+            # processSeconds=endSeconds-startSeconds
+            # processTime=str(str(processHours)+":"+str(processMinutes)+":"+str(processSeconds+1))
+            # qrImageData["processTime"]=processTime
+            event_data =  get_event_id()
+            field = {
+                     "event_data": event_data,
+                     "title":title,
+                     "Process_id":Process_id,
+                     "processSequenceId":processSequenceId,
+                     "poisson_dist":qrImageData,
+                     "normal_dist":combinedObservations
+                     }
+
+
+            dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","insert",field,"nil")
+            # dowellconnection("FB","bangalore","blr","input","input","1234567","ABCDE","insert",combinedObservations,"nil")
+
+            return Response({
+                             "msg":"Successfully generated the results",
+                             "title":title,
+                             "Process_id":Process_id,
+                             "processSequenceId":processSequenceId,
+                             "poison case results":qrImageData,
+                             "normal case results":combinedObservations,
+                             "created on":current_datetime.strftime('%Y-%m-%d %H:%M:%S')
+                             })
+        else:
+            return Response("Process Id already in use. Please enter a different Process Id & try again.")
+
+    else:
+        return Response({"msg": "No Data Found"},status=status.HTTP_404_NOT_FOUND)
+
+
+#INSERT & CALCULATE FROM EXPERIMENTAL FRONTEND
+def insertQrImageData(request):
+    current_datetime = datetime.now()
+    # startHours=current_datetime.hour
+    # startMinutes=current_datetime.minute
+    # startSeconds=current_datetime.second
+
+    if request.method=="POST":
+
+        Process_id = int(request.POST.get("Process_id"))
         processSequenceId = request.POST.get("processSequenceId")
         numOfValues = request.POST.get("numOfValues")
-        minimumSeries = request.POST.get("minimumSeries")
-        minimumSeriesDatapoint = request.POST.get("minimumSeriesDatapoint")
-        minimumContinuousDatapoint = request.POST.get("minimumContinuousDatapoint")
-        processHours = request.POST.get("processHours")
-        values = request.POST.get("values")
-        startTricks=request.POST.get("startTricks")
-        series={}
-        seriesValues=[]
-        seriesValuesMean={}
-        seriesValuesMedian={}
-        seriesValuesMode={}
-        moment1={}
-        moment2={}
-        moment3={}
-        moment4={}
-        stdValue={}
+        # values = request.POST.get("values")
+        # startTricks=request.POST.get("startTricks")
+        title=request.POST.get("title")
+        seriesvalues={}
         for i in range(int(numOfValues)):
             temporary=request.POST.get("1000"+str(i+1))
             temporary2=temporary.split(',')
             temporary3=[int(i) for i in temporary2]
-            seriesValuesMean["1000"+str(i+1)]=mean(temporary3)
-            seriesValuesMedian["1000"+str(i+1)]=median(temporary3)
-            seriesValuesMode["1000"+str(i+1)]=mode(temporary3)
-            stdValue["1000"+str(i+1)]=stdev(temporary3)
-            moment1["1000"+str(i+1)]=moment(temporary3, moment=1)
-            moment2["1000"+str(i+1)]=moment(temporary3, moment=2)
-            moment3["1000"+str(i+1)]=moment(temporary3, moment=3)
-            moment4["1000"+str(i+1)]=moment(temporary3, moment=4)
-            series["1000"+str(i+1)]=temporary3
-        print(series)
-        result=cursor.find_one({"processSequenceId":processSequenceId})
-        if result:
-            return HttpResponse("Entered sequence id is already exist!")
+            seriesvalues["1000"+str(i+1)]=temporary3
+        field={"Process_id" : Process_id}
+        res = dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","fetch",field,"nil")
+        result = json.loads(res)
+        # if not result['data']:
+        #     url = 'http://100004.pythonanywhere.com/newapi'
+
+        #     payload={
+        #       "Process_id":Process_id,
+        #       "processSequenceId":processSequenceId,
+        #       "title":title,
+        #       "CSV":"" ,
+        #       "seriesvalues": seriesvalues
+        #           }
+
+        #     headers = {'content-type': 'application/json'}
+
+        #     response = requests.post(url, json=payload,headers=headers)
+        #     print(response)
+
+        # # field={"Process_id" : Process_id}
+        # # res = dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","fetch",field,"nil")
+        # # result = json.loads(res)
+
+        if not result['data']:
+            seriesvalues={}
+            for i in range(int(numOfValues)):
+                temporary=request.POST.get("1000"+str(i+1))
+                temporary2=temporary.split(',')
+                temporary3=[int(i) for i in temporary2]
+                seriesvalues["1000"+str(i+1)]=temporary3
+
+            qrImageData, combinedObservations = dowellstattricks(seriesvalues)
+
+            # endHours=current_datetime.hour
+            # endMinutes=current_datetime.minute
+            # endSeconds=current_datetime.second
+            # processHours=endHours-startHours
+            # processMinutes=endMinutes-startMinutes
+            # processSeconds=endSeconds-startSeconds
+            # processTime=str(str(processHours)+":"+str(processMinutes)+":"+str(processSeconds+1))
+            # qrImageData["processTime"]=processTime
+            event_data =  get_event_id()
+            field = {
+                     "event_data": event_data,
+                     "title":title,
+                     "Process_id":Process_id,
+                     "processSequenceId":processSequenceId,
+                     "poisson_dist":qrImageData,
+                     "normal_dist":combinedObservations
+                     }
+
+
+            dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","insert",field,"nil")
+
+            return render(request,'viewInsertedData.html',{'data':field})
         else:
-            cursor.insert_one({"document":"qr","title":"userData","processId":processId,"processSequenceId":processSequenceId,"series":series,"minimumSeries":minimumSeries,"minimumSeriesDatapoint":minimumSeriesDatapoint,"minimumContinuousDatapoint":minimumContinuousDatapoint,"processHours":processHours,"startTricks":startTricks,"mean":seriesValuesMean,"median":seriesValuesMedian,"mode":seriesValuesMode,"standardDeviation":stdValue,"moment1":moment1,"moment2":moment2,"moment3":moment3,"moment4":moment4})
-            return HttpResponse("Inserted!")
+            return HttpResponse("Process Id already in use. Please enter a different Process Id & try again.")
     else:
         return HttpResponse("No Data Found")
 
+#PREVIOUS ANSWER
 def fetchDataForm(request):
-    return render(request,"fetchData.html")
+    return render(request,"fetchDataForm.html")
+
 
 def fetchData(request):
-    cursor=db.QR_IMAGE
     if request.method=="POST":
-        processSequenceId = request.POST.get("psi")
-        result=cursor.find_one({"processSequenceId":processSequenceId})
-        print(result)
-        if result!=None:
-            data=JSONEncoder().encode(result)
-            return HttpResponse(data)
+        Process_id = int(request.POST.get("id"))
+        processId = {"Process_id":Process_id}
+        res=dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","find",processId,"nil")
+        result=json.loads(res)
+        if result:
+            data=result['data']
+            print(data)
+            return render(request,'viewData.html',{'data':data})
         else:
-            return HttpResponse("No Data Found")
+            return HttpResponse("The requested data was not found. Enter correct process id")
+    else:
+        return HttpResponse("No Data Found")
+
+
+#CALCULATE FROM SPREADSHEET
+## fucntion to generate a dictionary in the format accepted by stattricks API
+def generate_dict(table):
+    dictionary = {}
+    for row in table:
+        key = row[0]
+        values = row[1:]
+        dictionary[key] = values
+    return dictionary
+
+def uploadfileform(request):
+    return render(request,"uploadfile.html")
+
+def uploadfile(request):
+    if request.method == 'POST':
+        title=request.POST.get("title")
+        Process_id = int(request.POST.get("Process_id"))
+        processSequenceId = request.POST.get("processSequenceId")
+        csv_file = request.FILES['csvfile']
+
+        if csv_file:
+            if not csv_file.name.endswith('.csv'):
+                messages.error(request, 'File is not a CSV')
+                return HttpResponseRedirect(reverse("uploadfile"))
+            else:
+                # convert csv data to pandas dataframe
+                df = pd.read_csv(csv_file)
+                #convert the df into a list
+                t = df.values.tolist()
+                data = generate_dict(t)
+                json_d = json.dumps(data)
+                print("json is--->",json_d)
+                qrImageData, combinedObservations = dowellstattricks(data)
+
+                results = {
+                             "title":title,
+                             "Process_id":Process_id,
+                             "processSequenceId":processSequenceId,
+                             "poisson_dist":qrImageData,
+                             "normal_dist":combinedObservations
+                             }
+
+                # dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","insert",results,"nil")
+
+
+                return render(request,'viewInsertedData.html',{'data':results})
+        else:
+            messages.error(request, 'Failed to upload file')
+            return redirect(reverse("uploadfile"))
+
+    else:
+        return render(request, 'uploadfile.html')
+
+
+# def findDataForm(request):
+#     return render(request,"findDataForm.html")
+
+# def findData(request):
+#     if request.method=="POST":
+#         Process_id = int(request.POST.get("id"))
+#         processId = {"Process_id":Process_id}
+#         res=dowellconnection("FB","bangalore","blr","QR_IMAGE","qr","123456","ABCDE","fetch",processId,"nil")
+#         result=json.loads(res)
+#         if result:
+#             data=result['data']
+#             data_1={}
+#             data_1['data']=data[0]
+#             print("data is: ",data_1)
+#             return render(request,'viewData.html',data_1)
+#         else:
+#             return HttpResponse("The requested data was not found. Enter correct process id")
+#     else:
+#         return HttpResponse("No Data Found")

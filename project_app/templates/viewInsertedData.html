@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Representation</title>
+    <style>
+        body {
+            align:center;
+            font-family: Sego UI;
+        }
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+    <!-- <p><strong>{{data}}</p> -->
+    <h1 style>DATA</h1><br>
+    <h3><u>INPUTS</u></h3>
+        <p><strong>Title |</strong> {{data.title}}</p>
+        <p><strong>Process Id |</strong> {{data.Process_id}}</p>
+        <p><strong>Process Sequence Id |</strong> {{data.processSequenceId}}</p>
+    <br>
+    <h3><u>STATTRICKS RESULTS</u></h3>
+    <h4><u>Poisson distribution: </u></h4>
+        <p><strong>Series |</strong> {{data.poisson_dist.series}}</p>
+        <p><strong>Minimum Series |</strong> {{data.poisson_dist.minimumSeries}}</p>
+        <p><strong>Minimum Series Data Point |</strong> {{data.poisson_dist.minimumSeriesDatapoint}}</p>
+        <p><strong>Minimum Continuous Data Point |</strong> {{data.poisson_dist.minimumContinuousDatapoint}}</p>
+        <p><strong>Mean |</strong> {{data.poisson_dist.mean}}</p>
+        <p><strong>Median |</strong> {{data.poisson_dist.median}}</p>
+        <p><strong>Mode |</strong> {{data.poisson_dist.mode}}</p>
+        <p><strong>Moment1 |</strong> {{data.poisson_dist.moment1}}</p>
+        <p><strong>Moment2 |</strong> {{data.poisson_dist.moment2}}</p>
+        <p><strong>Moment3 |</strong> {{data.poisson_dist.moment3}}</p>
+        <p><strong>Moment4 |</strong> {{data.poisson_dist.moment4}}</p>
+        <p><strong>Normal Distribution |</strong> {{data.poisson_dist.normalDistribution}}</p>
+        <p><strong>Skewness |</strong> {{data.poisson_dist.skewness}}</p>
+        <p><strong>Kurtosis |</strong> {{data.poisson_dist.kurtosis}}</p>
+        <p><strong>Range |</strong></strong> {{data.poisson_dist.range}}</p>
+        <p><strong>Standard Deviation |</strong></strong> {{data.poisson_dist.standardDeviation}}</p>
+        <p><strong>Series count |</strong></strong> {{data.poisson_dist.count_val}}</p>
+    <br>
+    <h4><u>Normal distribution: </u></h4>
+        <p><strong>Series |</strong> {{data.normal_dist.mergedSeries}}</p>
+        <p><strong>Series Length|</strong> {{data.normal_dist.seriesLength}}</p>
+        <p><strong>Minimum Series |</strong> {{data.poisson_dist.minimumSeries}}</p>
+        <p><strong>Minimum Series Data Point |</strong> {{data.poisson_dist.minMergedSeries}}</p>
+        <p><strong>Max Series Data Point |</strong> {{data.poisson_dist.maxMergedSeries}}</p>
+        <p><strong>Mean |</strong> {{data.normal_dist.mergedMean}}</p>
+        <p><strong>Median |</strong> {{data.normal_dist.mergedMedian}}</p>
+        <p><strong>Mode |</strong> {{data.normal_dist.mergedMode}}</p>
+        <p><strong>Moment1 |</strong> {{data.normal_dist.mergedMoment1}}</p>
+        <p><strong>Moment2 |</strong> {{data.normal_dist.mergedMoment2}}</p>
+        <p><strong>Moment3 |</strong> {{data.normal_dist.mergedMoment3}}</p>
+        <p><strong>Moment4 |</strong> {{data.normal_dist.mergedMoment4}}</p>
+        <p><strong>Skewness |</strong> {{data.normal_dist.mergedSkewness}}</p>
+        <p><strong>Kurtosis |</strong> {{data.normal_dist.mergedKurtosis}}</p>
+        <p><strong>Range |</strong></strong> {{data.normal_dist.mergedRanges}}</p>
+        <p><strong>Standard Deviation |</strong></strong> {{data.normal_dist.mergedStdValues}}</p>
+    <!--<p><strong>count |</strong></strong> {{data.poisson_dist.count_val}}</p>-->
+    <!--<p><strong>StartTricks |</strong> {{data1.startTricks}}</p>-->
+    <!--<p><strong>Process Time |</strong></strong> {{data1.processTime}}</p>-->
+</body>
+</html>

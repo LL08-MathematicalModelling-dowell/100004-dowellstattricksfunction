@@ -6,18 +6,21 @@
     , initial-scale=1.0">
     <title>Form</title>
 </head>
-<body>
-    <form action="/insertData/" method="POST" enctype="multipart/form-data">
+<body style="background-color: cadetblue;">
+    <form action="/insertQrImageData/" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="number" name="processId" placeholder="process Id" min="1" required autofocus><br><br>
+        <input type="text" name="title" placeholder="title" required autofocus><br><br>
+        <input type="number" name="Process_id" placeholder="process Id" min="1" required autofocus><br><br>
         <input type="number" name="processSequenceId" placeholder="process sequence Id" min="1" required><br><br>
+        <input type="number" name="minimumSeries" placeholder="minimum series" min="1" required><br><br>
+        <input type="number" name="minimumSeriesDatapoint" placeholder="minimum series datapoint" min="1" required><br><br>
+        <input type="number" name="minimumContinousDatapoint" placeholder="maximum continous datapoint" min="1" required><br><br>
         <input type="number" name="numOfValues" onfocus="this.value=''" placeholder="series" oninput="array()" required><br><br>
         <div id="dynamic"></div>
-        <input type="number" name="minimumSeries" min="1" placeholder="minimum series" required><br><br>
-        <input type="number" name="minimumSeriesDatapoint" placeholder="minimum series datapoint" min="1" required><br><br>
-        <input type="number" name="minimumContinuousDatapoint" placeholder="minimum continuous datapoint" min="1" required><br><br>
-        <input type="number" name="processHours" placeholder="process hours" min="1" required><br><br>
-        <input type="number" name="startTricks" min="1" placeholder="startTricks" required><br><br>
+        <select name="startTricks">
+            <option value="no">NO</option>
+            <option value="yes">YES</option>
+        </select><br><br>
         <input type="submit">
     </form>
 </body>
