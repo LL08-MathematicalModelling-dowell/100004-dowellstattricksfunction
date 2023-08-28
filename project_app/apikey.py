@@ -9,4 +9,5 @@ def processApikey(api_key):
     }
 
     response = requests.post(url, json=payload)
+    print("CREDIT SYSTEM RESPONSE-------->", response)
     return response.text

@@ -88,14 +88,7 @@ class publicAPI(APIView):
                                             key: np.array(value) for key, value in seriesvalues.items()
                                         }
 
-                        switch_actions = {
-                                            'qrImageData': lambda: dowellstattricks(seriesvalues),
-                                            'combinedObservations': lambda: dowellstattricks(seriesvalues)
-                                        }
-
-                        qrImageData = switch_actions.get('qrImageData', lambda: None)()
-                        combinedObservations = switch_actions.get('combinedObservations', lambda: None)()
-
+                        qrImageData, combinedObservations = dowellstattricks(seriesvalues)
                         qrImage_json = json.dumps(qrImageData, default=np_encoder)
                         combinedObs_json= json.dumps(combinedObservations, default=np_encoder)
 
@@ -256,10 +249,8 @@ class stattricksAPI(APIView):
             processId = {"Process_id" : Process_id}
             res=dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","fetch",processId,"nil")
             result=json.loads(res)
-            if result:
-                data = result['data'][0]
-                print(data)
-
+            if result['data']:
+                data = result["data"][0]
                 poisson_json = json.loads(data["poisson_dist"])
                 poisson_data = poisson_json
 
