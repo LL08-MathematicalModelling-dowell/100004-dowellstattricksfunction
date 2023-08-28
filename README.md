@@ -4,7 +4,7 @@
 ```py
 import requests
 
-url = "https://100004.pythonanywhere.com/api"
+url = "https://100004.pythonanywhere.com/processapi"
 ```
 
 ### Payload for the API
