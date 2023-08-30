@@ -29,7 +29,7 @@ def default(request):
 def form(request):
     return render(request,"insertDataForm.html")
 
-#STATTRICKS API
+#OLD STATTRICKS API
 @api_view(['POST',])
 def stattricks_api(request):
 
@@ -73,8 +73,6 @@ def stattricks_api(request):
 
 
             dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","insert",field,"nil")
-            # dowellconnection("FB","bangalore","blr","input","input","1234567","ABCDE","insert",combinedObservations,"nil")
-
             return Response({
                              "msg":"Successfully generated the results",
                              "title":title,
@@ -94,17 +92,12 @@ def stattricks_api(request):
 #INSERT & CALCULATE FROM EXPERIMENTAL FRONTEND
 def insertQrImageData(request):
     current_datetime = datetime.now()
-    # startHours=current_datetime.hour
-    # startMinutes=current_datetime.minute
-    # startSeconds=current_datetime.second
 
     if request.method=="POST":
 
         Process_id = int(request.POST.get("Process_id"))
         processSequenceId = request.POST.get("processSequenceId")
         numOfValues = request.POST.get("numOfValues")
-        # values = request.POST.get("values")
-        # startTricks=request.POST.get("startTricks")
         title=request.POST.get("title")
         seriesvalues={}
         for i in range(int(numOfValues)):
@@ -115,25 +108,6 @@ def insertQrImageData(request):
         field={"Process_id" : Process_id}
         res = dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","fetch",field,"nil")
         result = json.loads(res)
-        # if not result['data']:
-        #     url = 'http://100004.pythonanywhere.com/newapi'
-
-        #     payload={
-        #       "Process_id":Process_id,
-        #       "processSequenceId":processSequenceId,
-        #       "title":title,
-        #       "CSV":"" ,
-        #       "seriesvalues": seriesvalues
-        #           }
-
-        #     headers = {'content-type': 'application/json'}
-
-        #     response = requests.post(url, json=payload,headers=headers)
-        #     print(response)
-
-        # # field={"Process_id" : Process_id}
-        # # res = dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","fetch",field,"nil")
-        # # result = json.loads(res)
 
         if not result['data']:
             seriesvalues={}
@@ -145,14 +119,6 @@ def insertQrImageData(request):
 
             qrImageData, combinedObservations = dowellstattricks(seriesvalues)
 
-            # endHours=current_datetime.hour
-            # endMinutes=current_datetime.minute
-            # endSeconds=current_datetime.second
-            # processHours=endHours-startHours
-            # processMinutes=endMinutes-startMinutes
-            # processSeconds=endSeconds-startSeconds
-            # processTime=str(str(processHours)+":"+str(processMinutes)+":"+str(processSeconds+1))
-            # qrImageData["processTime"]=processTime
             event_data =  get_event_id()
             field = {
                      "event_data": event_data,
@@ -194,7 +160,7 @@ def fetchData(request):
 
 
 #CALCULATE FROM SPREADSHEET
-## fucntion to generate a dictionary in the format accepted by stattricks API
+## function to generate a dictionary in the format accepted by stattricks API
 def generate_dict(table):
     dictionary = {}
     for row in table:

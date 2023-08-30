@@ -12,16 +12,16 @@ import pandas as pd
 import numpy as np
 import threading
 
-def generate_dict(csv_file):
-    df = pd.read_csv(csv_file)
-    data = df.values.tolist()
+# def generate_dict(csv_file):
+#     df = pd.read_csv(csv_file)
+#     data = df.values.tolist()
 
-    dictionary = {}
-    for row in data:
-        key = row[0]
-        values = row[1:]
-        dictionary[key] = values
-    return dictionary
+#     dictionary = {}
+#     for row in data:
+#         key = row[0]
+#         values = row[1:]
+#         dictionary[key] = values
+#     return dictionary
 
 def np_encoder(object):
     if isinstance(object, np.generic):
@@ -42,6 +42,7 @@ def insertion_thread(title,processId,seqId,poisson_data,normal_data):
     return event_id
 
 
+#PUBLIC API
 class publicAPI(APIView):
     def post(self,request):
         request_data = json.loads(request.body)
@@ -167,6 +168,7 @@ class publicAPI(APIView):
         else:
             return Response({"success":False, "msg":"Provide a valid API key"},status=status.HTTP_403_FORBIDDEN)
 
+#PROCESS API
 class stattricksAPI(APIView):
     def post(self,request):
         serializer = inputfields(data=request.data)
@@ -271,7 +273,7 @@ class stattricksAPI(APIView):
 
 
 
-
+#TEST API FOR LARGER DATASETS
 class revisedAPI(APIView):
     def post(self,request):
         serializer = inputfields(data=request.data)
