@@ -8,7 +8,6 @@ from rest_framework.decorators import api_view
 from bson import ObjectId
 from .dowellconnection import dowellconnection
 from .dowellstattricks import dowellstattricks
-from .api import stattricksAPI
 from .event_creation import get_event_id
 from datetime import datetime
 # import numpy as np

@@ -8,7 +8,7 @@ from .event_creation import get_event_id
 from .apikey import processApikey
 from datetime import datetime
 import json
-import pandas as pd
+# import pandas as pd
 import numpy as np
 import threading
 
@@ -134,7 +134,9 @@ class publicAPI(APIView):
                     if not request_data:
                         return Response("Process id required")
                     else:
-                        Process_id = request_data["Process_id"]
+                        serializer = inputfields(data=request.data)
+                        serializer.is_valid(raise_exception=True)
+                        Process_id = serializer.validated_data['Process_id']
                         processId = {"Process_id" : Process_id}
                         res=dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","fetch",processId,"nil")
                         result=json.loads(res)
@@ -247,7 +249,9 @@ class stattricksAPI(APIView):
         if not request_data:
             return Response("Process id required")
         else:
-            Process_id = request_data["Process_id"]
+            serializer = inputfields(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            Process_id = serializer.validated_data['Process_id']
             processId = {"Process_id" : Process_id}
             res=dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","fetch",processId,"nil")
             result=json.loads(res)
