@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import APIView
-from .serializers import inputfields
+from .serializers import inputfields, getinputs
 from .dowellconnection import dowellconnection
 from .stattricks import dowellstattricks
 from .event_creation import get_event_id
@@ -134,7 +134,7 @@ class publicAPI(APIView):
                     if not request_data:
                         return Response("Process id required")
                     else:
-                        serializer = inputfields(data=request.data)
+                        serializer = getinputs(data=request.data)
                         serializer.is_valid(raise_exception=True)
                         Process_id = serializer.validated_data['Process_id']
                         processId = {"Process_id" : Process_id}
@@ -249,7 +249,7 @@ class stattricksAPI(APIView):
         if not request_data:
             return Response("Process id required")
         else:
-            serializer = inputfields(data=request.data)
+            serializer = getinputs(data=request.data)
             serializer.is_valid(raise_exception=True)
             Process_id = serializer.validated_data['Process_id']
             processId = {"Process_id" : Process_id}

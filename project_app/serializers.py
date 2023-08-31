@@ -6,3 +6,6 @@ class inputfields(serializers.Serializer):
     title = serializers.CharField()
     CSV = serializers.CharField(required=False,allow_blank=True)
     seriesvalues = serializers.DictField(required=False,allow_null=True)
+
+class getinputs(serializers.Serializer):
+    Process_id = serializers.CharField()

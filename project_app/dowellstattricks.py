@@ -170,6 +170,9 @@ def dowellstattricks(seriesvalues):
     mergedRange3 = list()
 
     mergedResult = normalDistributionFunc(inputData)
+    print(mergedResult)
+    if mergedResult == "null":
+        mergedResult = series
     count = len(mergedResult)
     maxMergedResult = max(mergedResult)
     minMergedResult = min(mergedResult)

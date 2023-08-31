@@ -127,7 +127,6 @@ def dowellstattricks(seriesvalues):
         if seriesvalues[key] is not None:
             seriesvalues[key] = seriesvalues[key].tolist()
 
-    print("Seriesvalues------------------>",seriesvalues)
     qrImageData = {
         "series": seriesvalues,
         "minimumSeries": minimumSeries,
@@ -149,8 +148,11 @@ def dowellstattricks(seriesvalues):
         # "standardDeviation": standardDeviation,
         "count_val": count_val,
     }
-    print("QR IMAGE SUCCESS")
+
     mergedResult = np.concatenate(list(seriesvalues.values()))
+    if mergedResult == "null":
+        mergedResult = seriesvalues
+
     Range_data = {"Range1": [], "Range2": [], "Range3": []}
     count = len(mergedResult)
     maxMergedResult = np.max(mergedResult)
@@ -170,11 +172,6 @@ def dowellstattricks(seriesvalues):
     # mergedStdValue_3 = mergedStdValue * 3
     # mergedStdValue_2 = mergedStdValue * 2
     # mergedStdValue_1 = mergedStdValue * 1
-
-    # mergedRange1 = mergedResult[(mergedStdValue - 1 <= mergedResult) & (mergedResult <= mergedStdValue + 1)]
-    # mergedRange2 = mergedResult[(mergedStdValue - 2 <= mergedResult) & (mergedResult <= mergedStdValue + 2)]
-    # mergedRange3 = mergedResult[(mergedStdValue - 3 <= mergedResult) & (mergedResult <= mergedStdValue + 3)]
-
     mergedVariance = np.var(mergedResult)
     mergedMoment1 = moment(mergedResult, moment=1)
     mergedMoment2 = moment(mergedResult, moment=2)
@@ -191,15 +188,6 @@ def dowellstattricks(seriesvalues):
         "mergedMean": mergedMean,
         "mergedMedian": mergedMedian,
         "mergedMode": mergedMode,
-        # "mergedStdValues": {
-        #     "mergedStdValue": mergedStdValue,
-        #     "mergedStdValue_-3": mergedStdValue__3,
-        #     "mergedStdValue_-2": mergedStdValue__2,
-        #     "mergedStdValue_-1": mergedStdValue__1,
-        #     "mergedStdValue_3": mergedStdValue_3,
-        #     "mergedStdValue_2": mergedStdValue_2,
-        #     "mergedStdValue_1": mergedStdValue_1,
-        # },
         "mergedRanges": mergedRanges,
         "mergedVariance": mergedVariance,
         "mergedMoment1": mergedMoment1,
