@@ -8,9 +8,10 @@ from rest_framework.decorators import api_view
 from bson import ObjectId
 from .dowellconnection import dowellconnection
 from .dowellstattricks import dowellstattricks
+from .serializers import inputfields
 from .event_creation import get_event_id
 from datetime import datetime
-# import numpy as np
+import numpy as np
 import pandas as pd
 import json
 import requests
@@ -21,6 +22,10 @@ class JSONEncoder(json.JSONEncoder):
         if isinstance(o, ObjectId):
             return str(o)
         return json.JSONEncoder.default(self, o)
+
+def np_encoder(object):
+    if isinstance(object, np.generic):
+        return object.item()
 
 def default(request):
     return render(request,"dashboard.html")
@@ -94,8 +99,15 @@ def insertQrImageData(request):
 
     if request.method=="POST":
 
-        Process_id = int(request.POST.get("Process_id"))
-        processSequenceId = request.POST.get("processSequenceId")
+        serializer = inputfields(data=request.POST)
+        serializer.is_valid(raise_exception=True)
+
+        Process_id = serializer.validated_data['Process_id']
+        processSequenceId = serializer.validated_data['processSequenceId']
+        title = serializer.validated_data['title']
+        # seriesvalues = serializer.validated_data['seriesvalues']
+        # Process_id = int(request.POST.get("Process_id"))
+        # processSequenceId = request.POST.get("processSequenceId")
         numOfValues = request.POST.get("numOfValues")
         title=request.POST.get("title")
         seriesvalues={}
@@ -117,6 +129,8 @@ def insertQrImageData(request):
                 seriesvalues["1000"+str(i+1)]=temporary3
 
             qrImageData, combinedObservations = dowellstattricks(seriesvalues)
+            qrImage_json = json.dumps(qrImageData, default=np_encoder)
+            combinedObs_json= json.dumps(combinedObservations, default=np_encoder)
 
             event_data =  get_event_id()
             field = {
@@ -124,8 +138,8 @@ def insertQrImageData(request):
                      "title":title,
                      "Process_id":Process_id,
                      "processSequenceId":processSequenceId,
-                     "poisson_dist":qrImageData,
-                     "normal_dist":combinedObservations
+                     "poisson_dist":qrImage_json,
+                     "normal_dist":combinedObs_json
                      }
 
 

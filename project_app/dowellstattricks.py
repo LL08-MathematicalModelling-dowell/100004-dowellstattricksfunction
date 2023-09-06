@@ -82,6 +82,16 @@ def assign_range(data_list,mean, sd):
 
     return range1, range2, range3
 
+def sort_range(ranges):
+    range_dict = {}
+    for key, lists in ranges.items():
+        sublist_lengths = [len(sublist) for sublist in lists]
+        range_dict[key] = {
+            "range lists": lists,
+            "lengths": sublist_lengths,
+            "total_length": len(lists)
+        }
+    return range_dict
 def dowellstattricks(seriesvalues):
 
     series={}
@@ -134,6 +144,7 @@ def dowellstattricks(seriesvalues):
     minimumContinuousDatapoint=min(continousDatapoints)
     minimumSeries=min(seriesLenghts)
     maximumSeries=max(seriesLenghts)
+    list_ranges = sort_range(ranges)
 
     qrImageData={
                 "series":series,
@@ -152,7 +163,7 @@ def dowellstattricks(seriesvalues):
                 "normalDistribution":normalDistribution,
                 "skewness":skewness,
                 "kurtosis":kurtosisValues,
-                "list-wise ranges":ranges,
+                "list-wise ranges":list_ranges,
                 "standardDeviation":standardDeviation,
                 "count_val":count_val,
                 }
