@@ -12,17 +12,17 @@ url = "https://100004.pythonanywhere.com/processapi"
 
 ```py
 {
-   "title": "demo-case",
-   "Process_id": 12345,
-   "processSequenceId": 11,
-   "series": 4,
-   "seriesvalues":{
-       "list1":[3,3,3,7],
-       "list2":[11,2,2,4],
-       "list3":[9,2,3,3],
-       "list4":[1,2,3,4,4]
+    "title":"spreadsheet-data",    
+    "Process_id":9974,
+    "processSequenceId":1,
+    "seriesvalues":{
+         "list1":[3,3,3,2,1,1,2,5,6,15],
+         "list2":[11,2,2,4,2,2,5,6,8,9],
+         "list3":[9,2,3,3,4,4,4,7,8,9],
+         "list4":[1,2,3,4,4,4,4,2,2,8],
+         "list5":[1,2,3,4,5,6,7,8,9,10]
+     }
    }
-}
 ```
 ```txt
 NOTE: 1. The length of each list in the "seriesvalues" dictionary should be greater than or equal to 3
@@ -34,27 +34,45 @@ NOTE: 1. The length of each list in the "seriesvalues" dictionary should be grea
 ```py
 {
     "msg": "Successfully generated the results",
-    "title": "demo-case",
-    "Process_id": 12345,
-    "processSequenceId": 11,
+    "title": "spreadsheet-data",
+    "Process_id": "9974",
+    "processSequenceId": "1",
     "poison case results": {
         "series": {
             "list1": [
                 3,
                 3,
                 3,
-                7
+                2,
+                1,
+                1,
+                2,
+                5,
+                6,
+                15
             ],
             "list2": [
+                11,
                 2,
                 2,
                 4,
-                11
+                2,
+                2,
+                5,
+                6,
+                8,
+                9
             ],
             "list3": [
+                9,
                 2,
                 3,
                 3,
+                4,
+                4,
+                4,
+                7,
+                8,
                 9
             ],
             "list4": [
@@ -62,29 +80,49 @@ NOTE: 1. The length of each list in the "seriesvalues" dictionary should be grea
                 2,
                 3,
                 4,
-                4
+                4,
+                4,
+                4,
+                2,
+                2,
+                8
+            ],
+            "list5": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
             ]
         },
-        "minimumSeries": 4,
-        "maximumSeries": 5,
+        "minimumSeries": 10,
+        "maximumSeries": 10,
         "minimumSeriesDatapoint": {
-            "list1": 3,
+            "list1": 1,
             "list2": 2,
             "list3": 2,
-            "list4": 1
+            "list4": 1,
+            "list5": 1
         },
         "minimumContinuousDatapoint": 1,
         "mean": {
-            "list1": 4.0,
-            "list2": 4.75,
-            "list3": 4.25,
-            "list4": 2.8
+            "list1": 4.1,
+            "list2": 5.1,
+            "list3": 5.3,
+            "list4": 3.4,
+            "list5": 5.5
         },
         "median": {
             "list1": 3.0,
-            "list2": 3.0,
-            "list3": 3.0,
-            "list4": 3
+            "list2": 4.5,
+            "list3": 4.0,
+            "list4": 3.5,
+            "list5": 5.5
         },
         "mode": {
             "list1": [
@@ -94,149 +132,293 @@ NOTE: 1. The length of each list in the "seriesvalues" dictionary should be grea
                 2
             ],
             "list3": [
-                3
+                4
             ],
             "list4": [
                 4
+            ],
+            "list5": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
             ]
         },
         "standardDeviation": {
-            "list1": 1.7320508075688772,
-            "list2": 3.6996621467371855,
-            "list3": 2.7726341266023544,
-            "list4": 1.16619037896906
+            "list1": 3.935733730830885,
+            "list2": 3.1448370387032774,
+            "list3": 2.5317977802344322,
+            "list4": 1.8547236990991407,
+            "list5": 2.8722813232690143
         },
         "moment1": {
             "list1": 0.0,
             "list2": 0.0,
             "list3": 0.0,
-            "list4": 0.0
+            "list4": 0.0,
+            "list5": 0.0
         },
         "moment2": {
-            "list1": 3.0,
-            "list2": 13.6875,
-            "list3": 7.6875,
-            "list4": 1.3599999999999999
+            "list1": 15.489999999999998,
+            "list2": 9.889999999999999,
+            "list3": 6.409999999999999,
+            "list4": 3.44,
+            "list5": 8.25
         },
         "moment3": {
-            "list1": 6.0,
-            "list2": 50.53125,
-            "list3": 22.96875,
-            "list4": -0.5759999999999993
+            "list1": 122.05199999999999,
+            "list2": 16.93200000000001,
+            "list3": 5.904000000000003,
+            "list4": 7.607999999999997,
+            "list5": 0.0
         },
         "moment4": {
-            "list1": 21.0,
-            "list2": 410.14453125,
-            "list3": 134.89453125,
-            "list4": 3.011199999999999
+            "list1": 1435.7496999999998,
+            "list2": 188.5337,
+            "list3": 61.9457,
+            "list4": 49.299199999999985,
+            "list5": 120.8625
         },
         "normalDistribution": {
-            "list1": 2.267949192431123,
-            "list2": 1.0503378532628145,
-            "list3": 1.4773658733976456,
-            "list4": 1.6338096210309399
+            "list1": 0.16426626916911458,
+            "list2": 1.9551629612967223,
+            "list3": 2.7682022197655676,
+            "list4": 1.5452763009008592,
+            "list5": 2.6277186767309857
         },
         "skewness": {
-            "list1": 1.1547005383792515,
-            "list2": 0.9978697176912956,
-            "list3": 1.0776051731391265,
-            "list4": -0.36317347441943004
+            "list1": 2.0020170589049986,
+            "list2": 0.5443946172234717,
+            "list3": 0.36379716011458546,
+            "list4": 1.1924298525170918,
+            "list5": 0.0
         },
         "kurtosis": {
-            "list1": -0.6666666666666665,
-            "list2": -0.8107837618064679,
-            "list3": -0.7174301011302795,
-            "list4": -1.3719723183391006
+            "list1": 2.983783869390736,
+            "list2": -1.0724910312732263,
+            "list3": -1.492368836719147,
+            "list4": 1.1660356949702537,
+            "list5": -1.2242424242424244
         },
-        "range": {
-            "1": [
-                3,
-                2,
-                2,
-                1
-            ],
-            "2": [
-                3,
-                2,
-                3,
-                2
-            ],
-            "3": [
-                3,
-                4,
-                3,
-                3
-            ]
+        "list-wise ranges": {
+            "Range 1": {
+                "range lists": [
+                    [
+                        1,
+                        2,
+                        3,
+                        5,
+                        6
+                    ],
+                    [
+                        2,
+                        4,
+                        5,
+                        6,
+                        8
+                    ],
+                    [
+                        3,
+                        4,
+                        7
+                    ],
+                    [
+                        2,
+                        3,
+                        4
+                    ],
+                    [
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8
+                    ]
+                ],
+                "lengths": [
+                    5,
+                    5,
+                    3,
+                    3,
+                    6
+                ],
+                "total_length": 5
+            },
+            "Range 2": {
+                "range lists": [
+                    [],
+                    [
+                        9,
+                        11
+                    ],
+                    [
+                        2,
+                        8,
+                        9
+                    ],
+                    [
+                        1
+                    ],
+                    [
+                        1,
+                        2,
+                        9,
+                        10
+                    ]
+                ],
+                "lengths": [
+                    0,
+                    2,
+                    3,
+                    1,
+                    4
+                ],
+                "total_length": 5
+            },
+            "Range 3": {
+                "range lists": [
+                    [
+                        15
+                    ],
+                    [],
+                    [],
+                    [
+                        8
+                    ],
+                    []
+                ],
+                "lengths": [
+                    1,
+                    0,
+                    0,
+                    1,
+                    0
+                ],
+                "total_length": 5
+            }
         },
-        "count_val": 5
+        "count_val": 10
     },
     "normal case results": {
         "mergedSeries": [
+            3,
+            3,
+            3,
+            2,
+            1,
             1,
             2,
+            5,
+            6,
+            15,
+            11,
             2,
             2,
+            4,
             2,
-            3,
-            3,
-            3,
-            3,
+            2,
+            5,
+            6,
+            8,
+            9,
+            9,
+            2,
             3,
             3,
             4,
             4,
             4,
             7,
+            8,
             9,
-            11
+            1,
+            2,
+            3,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2,
+            8,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
         ],
-        "seriesLength": 17,
-        "maxMergedSeries": 11,
+        "seriesLength": 50,
+        "maxMergedSeries": 15,
         "minMergedSeries": 1,
-        "mergedMean": 3.8823529411764706,
-        "mergedMedian": 3,
+        "mergedMean": 4.68,
+        "mergedMedian": 4.0,
         "mergedMode": [
-            3
+            2
         ],
-        "mergedStdValues": {
-            "mergedStdValue": 2.58689805027012,
-            "mergedStdValue_-3": -7.760694150810361,
-            "mergedStdValue_-2": -5.17379610054024,
-            "mergedStdValue_-1": -2.58689805027012,
-            "mergedStdValue_3": 7.760694150810361,
-            "mergedStdValue_2": 5.17379610054024,
-            "mergedStdValue_1": 2.58689805027012
-        },
         "mergedRanges": {
-            "Range1": [
-                2,
-                2,
-                2,
-                2,
-                3,
-                3,
-                3,
-                3,
-                3,
-                3
-            ],
-            "Range2": [
-                1,
-                4,
-                4,
-                4
-            ],
-            "Range3": []
+            "Range1": {
+                "range lists": [
+                    [
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                    ]
+                ],
+                "lengths": [
+                    6
+                ],
+                "total_length": 1
+            },
+            "Range2": {
+                "range lists": [
+                    [
+                        1,
+                        8,
+                        9,
+                        10
+                    ]
+                ],
+                "lengths": [
+                    4
+                ],
+                "total_length": 1
+            },
+            "Range3": {
+                "range lists": [
+                    [
+                        11
+                    ]
+                ],
+                "lengths": [
+                    1
+                ],
+                "total_length": 1
+            }
         },
-        "mergedVariance": 6.6920415224913485,
+        "mergedVariance": 9.3376,
         "mergedMoment1": 0.0,
-        "mergedMoment2": 6.6920415224913485,
-        "mergedMoment3": 27.65764298799104,
-        "mergedMoment4": 204.10648818859923,
-        "mergedSkewness": 1.5976337478934297,
-        "mergedKurtosis": 1.557635155584121
+        "mergedMoment2": 9.3376,
+        "mergedMoment3": 31.116864000000017,
+        "mergedMoment4": 340.88207872,
+        "mergedSkewness": 1.090543322614494,
+        "mergedKurtosis": 0.9096118089088971
     },
-    "created on": "2023-05-03 13:39:25.883178"
+    "created on": "2023-09-08 09:19:46"
 }
 ```
 ```py
