@@ -39,9 +39,6 @@ def stattricks_api(request):
 
     if request.method=="POST":
         current_datetime = datetime.now()
-        # startHours=current_datetime.hour
-        # startMinutes=current_datetime.minute
-        # startSeconds=current_datetime.second
 
         response=request.data
 
@@ -57,14 +54,6 @@ def stattricks_api(request):
 
             qrImageData, combinedObservations = dowellstattricks(seriesvalues)
 
-            # endHours=current_datetime.hour
-            # endMinutes=current_datetime.minute
-            # endSeconds=current_datetime.second
-            # processHours=endHours-startHours
-            # processMinutes=endMinutes-startMinutes
-            # processSeconds=endSeconds-startSeconds
-            # processTime=str(str(processHours)+":"+str(processMinutes)+":"+str(processSeconds+1))
-            # qrImageData["processTime"]=processTime
             event_data =  get_event_id()
             field = {
                      "event_data": event_data,

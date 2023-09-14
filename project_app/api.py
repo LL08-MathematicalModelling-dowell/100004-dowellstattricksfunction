@@ -278,45 +278,45 @@ class stattricksAPI(APIView):
 
 
 #TEST API FOR LARGER DATASETS
-class revisedAPI(APIView):
-    def post(self,request):
-        serializer = inputfields(data=request.data)
-        serializer.is_valid(raise_exception=True)
+# class revisedAPI(APIView):
+#     def post(self,request):
+#         serializer = inputfields(data=request.data)
+#         serializer.is_valid(raise_exception=True)
 
-        Process_id = serializer.validated_data['Process_id']
-        processSequenceId = serializer.validated_data['processSequenceId']
-        title = serializer.validated_data['title']
-        # csv_path = serializer.validated_data['CSV']
-        seriesvalues = serializer.validated_data['seriesvalues']
-        current_datetime = datetime.now()
+#         Process_id = serializer.validated_data['Process_id']
+#         processSequenceId = serializer.validated_data['processSequenceId']
+#         title = serializer.validated_data['title']
+#         # csv_path = serializer.validated_data['CSV']
+#         seriesvalues = serializer.validated_data['seriesvalues']
+#         current_datetime = datetime.now()
 
-        field={"Process_id" : Process_id}
-        res = dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","fetch",field,"nil")
-        result = json.loads(res)
+#         field={"Process_id" : Process_id}
+#         res = dowellconnection("dowellfunctions","bangalore","dowellfunctions","stattricks","stattricks","1197001","ABCDE","fetch",field,"nil")
+#         result = json.loads(res)
 
-        if not result['data']:
-            seriesvalues = {
-                                key: np.array(value) for key, value in seriesvalues.items()
-                            }
-        for key,value in seriesvalues.items():
-            print("Processing list: ",key)
+#         if not result['data']:
+#             seriesvalues = {
+#                                 key: np.array(value) for key, value in seriesvalues.items()
+#                             }
+#         for key,value in seriesvalues.items():
+#             print("Processing list: ",key)
 
-        chunk_size = 10
-        chunk_count = len(value)//chunk_size
+#         chunk_size = 10
+#         chunk_count = len(value)//chunk_size
 
-        for i in range(chunk_count):
-            start_index = i*chunk_size
-            end_index = (i+1)*chunk_size
+#         for i in range(chunk_count):
+#             start_index = i*chunk_size
+#             end_index = (i+1)*chunk_size
 
-            list_chunk = value[start_index:end_index]
-            print("this list chunk is:", list_chunk)
+#             list_chunk = value[start_index:end_index]
+#             print("this list chunk is:", list_chunk)
 
-        if len(value) % chunk_size!=0:
-            start_index = chunk_count * chunk_size
-            list_chunk = value[start_index:]
-            print("Remaining elements result:", list_chunk)
+#         if len(value) % chunk_size!=0:
+#             start_index = chunk_count * chunk_size
+#             list_chunk = value[start_index:]
+#             print("Remaining elements result:", list_chunk)
 
-        return Response({"List":list_chunk})
+#         return Response({"List":list_chunk})
 
 
 
